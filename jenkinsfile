@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         // Adjust these paths to match your Windows install
-        PHP_HOME = 'C:\wamp64\bin\php\php8.3.28'
-        COMPOSER_HOME = 'C:\ProgramData\ComposerSetup\bin'
+        PHP_HOME = 'C:/wamp64/bin/php/php8.3.28'
+        COMPOSER_HOME = 'C:/ProgramData/ComposerSetup/bin'
     }
 
     stages {
