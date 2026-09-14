@@ -9,7 +9,7 @@
             <div class="rounded-2xl bg-white p-6 shadow-lg sm:p-8">
                 <div class="mb-8 text-center">
                     <h1 class="text-2xl font-bold text-gray-900">
-                        Make Payment Final
+                        Make Payment
                     </h1>
                     <p class="mt-2 text-sm text-gray-500">
                         Enter your details to continue with payment.
