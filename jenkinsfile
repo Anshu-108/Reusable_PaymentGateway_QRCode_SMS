@@ -60,7 +60,7 @@ pipeline {
             steps {
                 echo 'Deploying application...'
                 // Example: copy files to a local IIS/XAMPP www folder
-                // bat 'xcopy /E /Y . C:\\inetpub\\wwwroot\\my-laravel-app'
+                bat 'xcopy /E /Y . C:/wamp64/www/payment_gateway'
 
                 // Example: deploy to a remote server over SSH (requires SSH Agent plugin + credentials)
                 // sshagent(['your-ssh-credential-id']) {
