@@ -56,18 +56,40 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
-            steps {
-                echo 'Deploying application...'
-                // Example: copy files to a local IIS/XAMPP www folder
-                bat 'xcopy /E /Y . C:/wamp64/www/payment_gateway'
+        // stage('Deploy') {
+        //     steps {
+        //         echo 'Deploying application...'
+        //         // Example: copy files to a local IIS/XAMPP www folder
+        //         bat 'xcopy /E /Y . C:/wamp64/www/payment_gateway'
 
-                // Example: deploy to a remote server over SSH (requires SSH Agent plugin + credentials)
-                // sshagent(['your-ssh-credential-id']) {
-                //     bat 'scp -r . user@your-server:/var/www/my-laravel-app'
-                // }
-            }
+        //         // Example: deploy to a remote server over SSH (requires SSH Agent plugin + credentials)
+        //         // sshagent(['your-ssh-credential-id']) {
+        //         //     bat 'scp -r . user@your-server:/var/www/my-laravel-app'
+        //         // }
+        //     }
+        // }
+
+        stage('Deploy') {
+        steps {
+            echo 'Deploying application...'
+
+            bat '''
+                if not exist "C:\\wamp64\\www\\payment_gateway" (
+                    mkdir "C:\\wamp64\\www\\payment_gateway"
+                )
+
+                robocopy "%WORKSPACE%" "C:\\wamp64\\www\\payment_gateway" /E /COPY:DAT /DCOPY:DAT /R:3 /W:5 /XD ".git" "storage" /XF ".env" "Jenkinsfile"
+
+                if %ERRORLEVEL% LEQ 7 (
+                    echo Deployment completed successfully.
+                    exit /B 0
+                ) else (
+                    echo Deployment failed with Robocopy exit code %ERRORLEVEL%.
+                    exit /B %ERRORLEVEL%
+                )
+            '''
         }
+    }
     }
 
     post {
